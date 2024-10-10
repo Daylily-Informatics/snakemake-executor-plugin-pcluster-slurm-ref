@@ -139,17 +139,18 @@ class Executor(RemoteExecutor):
         # generic part of a submission string:
         # we use a run_uuid as the job-name, to allow `--name`-based
         # filtering in the job status checks (`sacct --name` and `squeue --name`)
-        if wildcard_str == "":
-            comment_str = f"rule_{job.name}"
-        else:
-            comment_str = f"rule_{job.name}_wildcards_{wildcard_str}"
+
+        #if wildcard_str == "":
+        #    comment_str = f"rule_{job.name}"
+        #else:
+        #    comment_str = f"rule_{job.name}_wildcards_{wildcard_str}"
+        comment_str=os.getenv('SMK_SLURM_COMMENT','RnD')
         call = (
             f"sbatch "
             f"--parsable "
+            f"--comment '{comment_str}' "
             f"--job-name {self.run_uuid} "
             f"--output '{slurm_logfile}' "
-            f"--export=ALL "
-            f"--comment {comment_str}"
         )
 
         call += self.get_account_arg(job)
@@ -213,7 +214,11 @@ class Executor(RemoteExecutor):
         # (see https://github.com/snakemake/snakemake/issues/2014)
         call += f" -D {self.workflow.workdir_init}"
         # and finally the job to execute with all the snakemake parameters
-        call += f' --wrap="{exec_job}"'
+        call += f''' <<EOF
+#!/bin/bash
+{exec_job}
+EOF
+'''
 
         self.logger.debug(f"sbatch call: {call}")
         try:
