@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "snakemake-executor-plugin-slurm-aws-parallel-cluster"
+name = "snakemake-executor-plugin-pcluster-slurm"
 version = "0.0.1"
 description = "A Snakemake executor plugin for submitting jobs to an AWS Parallel Cluster SLURM cluster."
 authors = [
@@ -8,7 +8,7 @@ authors = [
 ]
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/Daylily-Informatics/snakemake-executor-plugin-slurm-aws-parallel-cluster"
+repository = "https://github.com/Daylily-Informatics/snakemake-executor-plugin-pcluster-slurm"
 documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor/pcluster-slurm.NOTWRITTENYET.html"
 keywords = ["snakemake", "plugin", "executor", "cluster", "slurm", "pcluster", "aws", "parallel-compute", "parallel-cluster"]
 
