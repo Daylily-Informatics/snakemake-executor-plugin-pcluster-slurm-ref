@@ -2,7 +2,7 @@
 
 ## The general Idea
 
-Upon creating a valid AWS Parallel Cluster (and one which uses slurm as the scheduler), to use this plugin: _a._ log in to your cluster's head node, _b._ activate your snakemake environment as usual (which should also have snakemake-executor-plugin-pcluster-slurm pip installed), and run a snakemake workflow with --executor pcluster-slurm. Snakemake will then submit your jobs as cluster jobs & `pcluster slurm` will manage creating compute nodes, bidding on them, managing budget constraints, spinning them down, etc. **It is magic really.**
+Upon creating a valid AWS Parallel Cluster (and one which uses slurm as the scheduler), to use this plugin: _a._ log in to your cluster's head node, _b._ activate your snakemake environment as usual (which should also have `snakemake-executor-plugin-pcluster-slurm` pip installed), and run a snakemake workflow with `--executor pcluster-slurm`. Snakemake will then submit your jobs as cluster jobs & `pcluster slurm` will manage creating compute nodes, bidding on them, managing budget constraints, spinning them down, etc. **It is magic really.**
 
 ## A Few Important `pcluster` `slurm` Peculiarities
 
