@@ -127,6 +127,12 @@ class Executor(RemoteExecutor):
             f".snakemake/slurm_logs/{group_or_rule}/{wildcard_str}/%j.log"
         )
         logdir = os.path.dirname(slurm_logfile)
+        
+        slurm_errorlogfile = os.path.abspath(
+            f".snakemake/slurm_logs/{group_or_rule}/{wildcard_str}/%j.err"
+        )
+        errlogdir = os.path.dirname(slurm_errorlogfile)
+        
         # this behavior has been fixed in slurm 23.02, but there might be plenty of
         # older versions around, hence we should rather be conservative here.
         assert "%j" not in logdir, (
@@ -149,7 +155,11 @@ class Executor(RemoteExecutor):
             f"sbatch "
             f"--parsable "
             f"--comment '{comment_str}' "
-            f"--job-name {self.run_uuid} "
+            f"--time={resources.time} "
+            f"--job-name '{job.name}-{run_uuid}' "
+            f"--distribution block "
+            f"--chdir {os.getcwd()} "
+            f"--error '{slurm_errorlogfile}' "
             f"--output '{slurm_logfile}' "
         )
 
