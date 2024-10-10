@@ -1,4 +1,4 @@
-# Snakemake executor plugin: pcluster-slurm v_0.0.4_
+# Snakemake executor plugin: pcluster-slurm v_0.0.6_
 
 # Snakemake Executor Plugins (generally)
 [Snakemake plugin catalog docs](https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor).
@@ -20,6 +20,13 @@ conda activate snakemake
 _from an environment with snakemake and pip installed_
 ```bash
 pip install snakemake-executor-plugin-pcluster-slurm
+```
+
+# Example Usage [daylily cluster headnode](https://github.com/Daylily-Informatics/daylily)
+```bash
+mkdir -p /fsx/resources/environments/containers/ubuntu/cache/
+export SNAKEMAKE_OUTPUT_CACHE=/fsx/resources/environments/containers/ubuntu/cache/
+snakemake --use-conda --use-singularity -j 10  --singularity-prefix /fsx/resources/environments/containers/ubuntu/ip-10-0-0-240/ --singularity-args "  -B /tmp:/tmp -B /fsx:/fsx  -B /home/$USER:/home/$USER -B $PWD/:$PWD" --conda-prefix /fsx/resources/environments/containers/ubuntu/ip-10-0-0-240/ --executor pcluster-slurm --default-resources slurm_partition='i64,i128,i192' --cache  --verbose
 ```
 
 # More Documentation Pending For:
