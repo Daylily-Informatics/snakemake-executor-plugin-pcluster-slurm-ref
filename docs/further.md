@@ -2,17 +2,20 @@
 
 ## The general Idea
 
-To use this plugin, log in to your cluster's head node (sometimes called the "login" node), activate your environment as usual, and start Snakemake. Snakemake will then submit your jobs as cluster jobs.
+Upon creating a valid AWS Parallel Cluster (and one which uses slurm as the scheduler), to use this plugin: _a._ log in to your cluster's head node, _b._ activate your snakemake environment as usual (which should also have snakemake-executor-plugin-pcluster-slurm pip installed), and run a snakemake workflow with --executor pcluster-slurm. Snakemake will then submit your jobs as cluster jobs & `pcluster slurm` will manage creating compute nodes, bidding on them, managing budget constraints, spinning them down, etc. **It is magic really.**
 
-## Specifying Account and Partition
+## A Few Important `pcluster` `slurm` Peculiarities
 
-Most SLURM clusters have two mandatory resource indicators for
-accounting and scheduling, the account and a
-partition, respectively. These resources are usually
-omitted from Snakemake workflows in order to keep the workflow
-definition independent of the platform. However, it is also possible
-to specify them inside of the workflow as resources in the rule
-definition.
+- `slurm` for AWS Parallel Cluster does not ask for an account.
+- `--wrap` behaves oddly, and I just avoid its use and `<<EOF\n#!/bin/bash\n<submitstring>\nEOF` instead.
+- `--partition` is needed, you may set it with slurm_partition=`<your SLURM partition>` or `<your SLURM partition1>,<your SLURM partition2>,<your SLURM partition3>`.
+- `--comment` flag will be set to `RandD` unless a string is detected in the env variable `SMK_SLURM_COMMENT`. If project level tagging of resources is enabled in you pcluster cluster, this comment will need to match the per-user allowed projects specified in creating the ephemeral cluster. For more on project tagging, budget tracking and blocking on exceeded budgets, see HERE.
+
+
+## Inherited Docs, Not Verfied for `pcluster` `slurm`
+**W A R N I N G**
+
+_I do find it madeningly confusing as to how to set sbatch flags globally to apply to all rules... need to try again to figure this out._
 
 To specify them at the command line, define them as default resources:
 

@@ -13,7 +13,7 @@ assignees: ''
 <!--Note the Snakemake version and the plugin version for which you experience the bug.
 Note the SLURM version, too. You can get the versions with:
 $ snakemake --version
-$ mamba list | grep "snakemake-executor-plugin-slurm"
+$ mamba list | grep "snakemake-executor-plugin-pcluster-slurm"
 $ sinfo --version
 Please only report bugs of the **latest stable release of Snakemake  and this plugin**.
 If possible please check whether the bug has been already fixed in the main branch.-->

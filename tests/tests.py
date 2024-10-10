@@ -9,7 +9,7 @@ class TestWorkflows(snakemake.common.tests.TestWorkflowsLocalStorageBase):
     __test__ = True
 
     def get_executor(self) -> str:
-        return "slurm"
+        return "pcluster-slurm"
 
     def get_executor_settings(self) -> Optional[ExecutorSettingsBase]:
         return ExecutorSettings()
