@@ -20,14 +20,14 @@ _I do find it madeningly confusing as to how to set sbatch flags globally to app
 To specify them at the command line, define them as default resources:
 
 ``` console
-$ snakemake --executor slurm --default-resources slurm_account=<your SLURM account> slurm_partition=<your SLURM partition>
+$ snakemake --executor slurm --default-resources  slurm_partition=<your SLURM partition>
 ```
 
 If individual rules require e.g. a different partition, you can override
 the default per rule:
 
 ``` console
-$ snakemake --executor slurm --default-resources slurm_account=<your SLURM account> slurm_partition=<your SLURM partition> --set-resources <somerule>:slurm_partition=<some other partition>
+$ snakemake --executor slurm --default-resources slurm_partition=<your SLURM partition> --set-resources <somerule>:slurm_partition=<some other partition>
 ```
 
 Usually, it is advisable to persist such settings via a
