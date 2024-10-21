@@ -33,5 +33,12 @@ export SNAKEMAKE_OUTPUT_CACHE=/fsx/resources/environments/containers/ubuntu/cach
 snakemake --use-conda --use-singularity -j 10  --singularity-prefix /fsx/resources/environments/containers/ubuntu/ip-10-0-0-240/ --singularity-args "  -B /tmp:/tmp -B /fsx:/fsx  -B /home/$USER:/home/$USER -B $PWD/:$PWD" --conda-prefix /fsx/resources/environments/containers/ubuntu/ip-10-0-0-240/ --executor pcluster-slurm --default-resources slurm_partition='i64,i128,i192' --cache  --verbose -k
 ```
 
-# More Documentation Pending For:
-## How slurm uses `--comment` to tag resources created by the autoscaling cluster to tracke and mnage budgets.
+# Other Cool Stuff
+## Real Time Cost Tracking & Use Throttling via Budgets, Tagging ... and the `--comment` sbatch flag.
+I etensively make use of  [Cost allocation tags with AWS ParallelCluster](https://github.com/Daylily-Informatics/aws-parallelcluster-cost-allocation-tags) in the [daylily omics ana\
+lysis framework](https://github.com/Daylily-Informatics/daylily?tab=readme-ov-file#daylily-aws-ephemeral-cluster-setup-0714) _$3 30x WGS analysis_(https://github.com/Daylily-Inform\
+atics/daylily?tab=readme-ov-file#3-30x-fastq-bam-bamdeduplicated-snvvcfsvvcf-add-035-for-a-raft-of-qc-reports)  to track AWS cluster usage costs in realtime, and impose limits wher\
+e appropriate (by user and project). This makes use of overriding the `--comment` flag to hold `project/budget` tags applied to ephemeral AWS resources, and thus enabling cost trac\
+king/controls.
+
+* To change the	--comment flag in v`0.0.8` of the pcluster-slurm plugin, set the comment flag value in the envvar `SMK_SLURM_COMMENT=RandD` (RandD is the default).
